@@ -42,7 +42,7 @@
                             <input id="password" type="password" class="p-3 bg-gray-200 rounded form-input w-full @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
 
                             @error('password')
-                                <span class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 w-full mt-5 text-sm" role="alert">
+                                <span class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 w-full mt-10 text-sm" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror

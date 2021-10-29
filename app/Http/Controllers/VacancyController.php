@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Wage;
 use App\Models\Vacancy;
+use App\Models\Category;
+use App\Models\Location;
+use App\Models\Experience;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class VacancyController extends Controller
 {   
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return "from controller";
+    {   
+        $vacancies = Vacancy::where('user_id', auth()->user()->id)->simplePaginate(5);
+
+        return view('vacancies.index', compact('vacancies'));
     }
 
     /**
@@ -27,8 +30,13 @@ class VacancyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $categories = Category::all();
+        $experiences = Experience::all();
+        $locations = Location::all();
+        $wages = Wage::all();
+
+        return view('vacancies.create', compact('categories', 'experiences', 'locations', 'wages'));
     }
 
     /**
@@ -39,7 +47,29 @@ class VacancyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|min:8',
+            'category' => 'required',
+            'wage' => 'required',
+            'location' => 'required',
+            'experience' => 'required',
+            'description' => 'required|min:50',
+            'image' => 'required',
+            'skills' => 'required'
+        ]);
+
+        auth()->user()->vacancies()->create([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'image' => $data['image'],
+            'skills' => $data['skills'],
+            'category_id' => $data['category'],
+            'location_id' => $data['location'],
+            'wage_id' => $data['wage'],
+            'experience_id' => $data['experience'],
+        ]);
+
+        return redirect()->action([VacancyController::class, 'index']);
     }
 
     /**
@@ -50,7 +80,7 @@ class VacancyController extends Controller
      */
     public function show(Vacancy $vacancy)
     {
-        //
+        return view('vacancies.show', compact('vacancy'));
     }
 
     /**
@@ -85,5 +115,26 @@ class VacancyController extends Controller
     public function destroy(Vacancy $vacancy)
     {
         //
+    }
+
+    public function images(Request $request)
+    {
+        $img = $request->file('file');
+        $name_img = time() . '.' . $img->extension();
+        $img->move(public_path('storage/vacancies'), $name_img);
+        return response()->json(['correct' => $name_img]);
+    }
+
+    public function borrarimagen(Request $request)
+    {
+        if($request->ajax()){
+            $image = $request->get('image');
+
+            if(File::exists('storage/vacancies/' . $image)){
+                File::delete('storage/vacancies/' . $image);
+                return response('Image Deleted', 200);
+            }
+            
+        }
     }
 }
