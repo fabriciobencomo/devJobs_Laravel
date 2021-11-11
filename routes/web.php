@@ -28,6 +28,9 @@ Route::group(['middleware' => ['auth', 'verified']], function(){
     //Upload Images
     Route::post('/vacancies/images', [App\Http\Controllers\VacancyController::class, 'images'])->name('vacancies.images');
     Route::post('/vacancies/borrarimagen', [App\Http\Controllers\VacancyController::class, 'borrarimagen'])->name('vacancies.borrarimagen');
+
+    //Notifications
+    Route::get('/notifications', [App\Http\Controllers\NotificationsController::class, 'index'])->name('notifications');
 });
 
 Route::post('/candidates/store', [App\Http\Controllers\CandidateController::class, 'store'])->name('candidates.store');
