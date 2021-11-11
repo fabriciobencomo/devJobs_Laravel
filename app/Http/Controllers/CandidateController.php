@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Candidate;
 use App\Models\Vacancy;
+use App\Models\Candidate;
 use Illuminate\Http\Request;
+use App\Notifications\NewCandidate;
+use Illuminate\Support\Facades\App;
 
 class CandidateController extends Controller
 {
@@ -60,6 +62,9 @@ class CandidateController extends Controller
             'email' => $data['email'],
             'cv' => $namefile
         ]);
+
+        $recruiter = $vacancy->user;
+        $recruiter->notify( new NewCandidate( $vacancy->title ));
 
         return back()->with('status', 'Your Application was sent Correctly! Good Luck');
     }

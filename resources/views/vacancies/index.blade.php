@@ -15,16 +15,16 @@
         <thead class="bg-gray-100 ">
             <tr>
             <th class="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                Titulo Vacante
+                Vacancy Title
             </th>
             <th class="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                Estado
+                Status
             </th>
             <th class="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                Candidatos
+                Candidates
             </th>
             <th class="px-6 py-3 border-b border-gray-200  text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                Acciones
+                Actions
             </th>
             </tr>
         </thead>
@@ -44,20 +44,20 @@
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{$vacancy->active ? ' bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}}">{{$vacancy->active ? 'Active' : 'Inactive'}}</span>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                <a 
-                    href="" 
+                <a
+                    href=""
                     class="text-gray-500 hover:text-gray-600"
-                >   Candidatos</a>
+                >   Candidates</a>
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
-                    <a href="#" class="text-teal-600 hover:text-teal-900 mr-5">Editar</a>
-                    <a href="#" class="text-red-600 hover:text-red-900  mr-5">Eliminar</a>
+                    <a href="#" class="text-teal-600 hover:text-teal-900 mr-5">Edit</a>
+                    <a href="#" class="text-red-600 hover:text-red-900  mr-5">Delete</a>
                     <a href="{{ route('vacancies.show', ['vacancy' => $vacancy->id ])}}" class="text-blue-600 hover:text-blue-900">Ver</a>
             </td>
             </tr>
             @endforeach
 
-        
+
         </tbody>
         </table>
     </div>
