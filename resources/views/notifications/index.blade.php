@@ -13,7 +13,11 @@
             @php
                 $data = $notification->data;
             @endphp
-            <li class="p-5 border border-gray-400 mb-5"><p class="mb-4">You got a New Candidate in <span class="font-bold">{{$data['vacancy']}}</span></p></li>
+            <li class="p-5 border border-gray-400 mb-5 bg-white">
+                <p class="mb-4">You got a New Candidate in <span class="font-bold">{{$data['vacancy']}}</span></p>
+                <p class="mb-4">Time: <span class="font-bold">{{$notification->created_at->diffForHumans()}}</span></p>
+                <a class="bg-green-500 p-3 inline-block text-xs font-bold text-white uppercase" href="{{ route('candidates.index', ['id' => $data['vacancy_id']]) }}">Check Candidates</a>
+            </li>
         @endforeach
         </ul>
     @else

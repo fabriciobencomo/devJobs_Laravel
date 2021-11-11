@@ -15,9 +15,14 @@ class CandidateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $vacancy_id = $request->route('id');
+
+        $vacancy = Vacancy::findOrFail($vacancy_id);
+
+        return view('candidates.index', compact('vacancy'));
+
     }
 
     /**
@@ -64,7 +69,7 @@ class CandidateController extends Controller
         ]);
 
         $recruiter = $vacancy->user;
-        $recruiter->notify( new NewCandidate( $vacancy->title ));
+        $recruiter->notify( new NewCandidate( $vacancy->title , $vacancy->id));
 
         return back()->with('status', 'Your Application was sent Correctly! Good Luck');
     }

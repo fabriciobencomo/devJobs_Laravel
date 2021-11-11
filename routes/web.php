@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth', 'verified']], function(){
     Route::get('/notifications', [App\Http\Controllers\NotificationsController::class, 'index'])->name('notifications');
 });
 
+Route::get('/candidates/{id}', [App\Http\Controllers\CandidateController::class, 'index'])->name('candidates.index');
 Route::post('/candidates/store', [App\Http\Controllers\CandidateController::class, 'store'])->name('candidates.store');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
