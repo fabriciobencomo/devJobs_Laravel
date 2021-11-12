@@ -21,6 +21,7 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('skills-component', require('./components/SkillsComponent.vue').default);
+Vue.component('status-component', require('./components/StatusComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

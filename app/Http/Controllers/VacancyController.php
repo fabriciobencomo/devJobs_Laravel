@@ -11,14 +11,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class VacancyController extends Controller
-{   
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $vacancies = Vacancy::where('user_id', auth()->user()->id)->simplePaginate(5);
 
         return view('vacancies.index', compact('vacancies'));
@@ -30,7 +30,7 @@ class VacancyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         $categories = Category::all();
         $experiences = Experience::all();
         $locations = Location::all();
@@ -134,7 +134,18 @@ class VacancyController extends Controller
                 File::delete('storage/vacancies/' . $image);
                 return response('Image Deleted', 200);
             }
-            
+
         }
+    }
+
+    //Change the status of a vacancy
+
+    public function status(Request $request, Vacancy $vacancy){
+
+        //Asign status to the vacancy
+        $vacancy->active = $request->Status;
+
+        //Save in DB
+        $vacancy->save();
     }
 }
