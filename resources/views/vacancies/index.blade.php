@@ -48,8 +48,8 @@
             </td>
             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium">
                     <a href="#" class="text-teal-600 hover:text-teal-900 mr-5">Edit</a>
-                    <a href="#" class="text-red-600 hover:text-red-900  mr-5">Delete</a>
-                    <a href="{{ route('vacancies.show', ['vacancy' => $vacancy->id ])}}" class="text-blue-600 hover:text-blue-900">Ver</a>
+                    <delete-component vacancy-id="{{$vacancy->id}}"></delete-component>
+                    <a href="{{ route('vacancies.show', ['vacancy' => $vacancy->id ])}}" class="text-blue-600 hover:text-blue-900">Check</a>
             </td>
             </tr>
             @endforeach

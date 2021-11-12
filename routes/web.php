@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth', 'verified']], function(){
     Route::get('/vacancies', [App\Http\Controllers\VacancyController::class, 'index'])->name('vacancies.index');
     Route::get('/vacancies/create', [App\Http\Controllers\VacancyController::class, 'create'])->name('vacancies.create');
     Route::post('/vacancies', [App\Http\Controllers\VacancyController::class, 'store'])->name('vacancies.store');
+    Route::delete('/vacancies/{vacancy}', [App\Http\Controllers\VacancyController::class, 'destroy'])->name('vacancies.destroy');
     Route::post('/vacancies/{vacancy}', [App\Http\Controllers\VacancyController::class, 'status'] )->name('vacancies.status');
 
     //Upload Images

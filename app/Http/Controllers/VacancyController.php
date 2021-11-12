@@ -112,9 +112,11 @@ class VacancyController extends Controller
      * @param  \App\Models\Vacancy  $vacancy
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vacancy $vacancy)
+    public function destroy(Vacancy $vacancy, Request $request)
     {
-        //
+        $vacancy->candidates()->delete();
+        $vacancy->delete();
+        return response()->json($request);
     }
 
     public function images(Request $request)
