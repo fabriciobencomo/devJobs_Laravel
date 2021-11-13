@@ -29,14 +29,15 @@ class VacancyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Vacancy $vacancy)
     {
         $categories = Category::all();
         $experiences = Experience::all();
         $locations = Location::all();
         $wages = Wage::all();
+        $vacancy->id = null;
 
-        return view('vacancies.create', compact('categories', 'experiences', 'locations', 'wages'));
+        return view('vacancies.create', compact('vacancy', 'categories', 'experiences', 'locations', 'wages'));
     }
 
     /**
@@ -91,7 +92,14 @@ class VacancyController extends Controller
      */
     public function edit(Vacancy $vacancy)
     {
-        //
+        $this->authorize('view', $vacancy);
+
+        $categories = Category::all();
+        $experiences = Experience::all();
+        $locations = Location::all();
+        $wages = Wage::all();
+
+        return view('vacancies.edit', compact('vacancy','categories', 'experiences', 'locations', 'wages'));
     }
 
     /**
@@ -103,7 +111,32 @@ class VacancyController extends Controller
      */
     public function update(Request $request, Vacancy $vacancy)
     {
-        //
+        $this->authorize('update', $vacancy);
+
+        $data = $request->validate([
+            'title' => 'required|min:8',
+            'category' => 'required',
+            'wage' => 'required',
+            'location' => 'required',
+            'experience' => 'required',
+            'description' => 'required|min:50',
+            'image' => 'required',
+            'skills' => 'required'
+        ]);
+
+        $vacancy->title = $data['title'];
+        $vacancy->category_id = $data['category'];
+        $vacancy->description = $data['description'];
+        $vacancy->image = $data['image'];
+        $vacancy->skills = $data['skills'];
+        $vacancy->location_id = $data['location'];
+        $vacancy->wage_id = $data['wage'];
+        $vacancy->experience_id = $data['experience'];
+
+        $vacancy->save();
+
+        return redirect()->action([VacancyController::class, 'index']);
+
     }
 
     /**
@@ -114,6 +147,7 @@ class VacancyController extends Controller
      */
     public function destroy(Vacancy $vacancy, Request $request)
     {
+        $this->authorize('delete', $vacancy);
         $vacancy->candidates()->delete();
         $vacancy->delete();
         return response()->json($request);

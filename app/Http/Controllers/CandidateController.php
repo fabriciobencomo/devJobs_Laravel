@@ -21,6 +21,8 @@ class CandidateController extends Controller
 
         $vacancy = Vacancy::findOrFail($vacancy_id);
 
+        this->authorize('view', $vacancy);
+
         return view('candidates.index', compact('vacancy'));
 
     }

@@ -21,15 +21,18 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'verified']], function(){
-    Route::get('/vacancies', [App\Http\Controllers\VacancyController::class, 'index'])->name('vacancies.index');
-    Route::get('/vacancies/create', [App\Http\Controllers\VacancyController::class, 'create'])->name('vacancies.create');
-    Route::post('/vacancies', [App\Http\Controllers\VacancyController::class, 'store'])->name('vacancies.store');
-    Route::delete('/vacancies/{vacancy}', [App\Http\Controllers\VacancyController::class, 'destroy'])->name('vacancies.destroy');
-    Route::post('/vacancies/{vacancy}', [App\Http\Controllers\VacancyController::class, 'status'] )->name('vacancies.status');
 
     //Upload Images
     Route::post('/vacancies/images', [App\Http\Controllers\VacancyController::class, 'images'])->name('vacancies.images');
     Route::post('/vacancies/borrarimagen', [App\Http\Controllers\VacancyController::class, 'borrarimagen'])->name('vacancies.borrarimagen');
+
+    Route::get('/vacancies', [App\Http\Controllers\VacancyController::class, 'index'])->name('vacancies.index');
+    Route::get('/vacancies/create', [App\Http\Controllers\VacancyController::class, 'create'])->name('vacancies.create');
+    Route::post('/vacancies', [App\Http\Controllers\VacancyController::class, 'store'])->name('vacancies.store');
+    Route::get('/vacancies/{vacancy}/edit', [App\Http\Controllers\VacancyController::class, 'edit'])->name('vacancies.edit');
+    Route::put('/vacancies/{vacancy}', [App\Http\Controllers\VacancyController::class, 'update'])->name('vacancies.update');
+    Route::delete('/vacancies/{vacancy}', [App\Http\Controllers\VacancyController::class, 'destroy'])->name('vacancies.destroy');
+    Route::post('/vacancies/{vacancy}', [App\Http\Controllers\VacancyController::class, 'status'] )->name('vacancies.status');
 
     //Notifications
     Route::get('/notifications', [App\Http\Controllers\NotificationsController::class, 'index'])->name('notifications');
