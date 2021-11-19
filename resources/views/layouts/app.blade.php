@@ -14,7 +14,10 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Devjobs</title>
 
     @yield('styles')
     <!-- Styles -->
@@ -62,7 +65,7 @@
             </div>
         </nav>
         <div class="bg-gray-700">
-            <nav class="container mx-auto flex space-x-1">
+            <nav class="container mx-auto flex flex-col text-center md:flex-row space-x-1">
                 @yield('nav')
             </nav>
         </div>
