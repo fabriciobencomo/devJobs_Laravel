@@ -19,7 +19,7 @@ class VacancyController extends Controller
      */
     public function index()
     {
-        $vacancies = Vacancy::where('user_id', auth()->user()->id)->simplePaginate(5);
+        $vacancies = Vacancy::where('user_id', auth()->user()->id)->latest()->simplePaginate(5);
 
         return view('vacancies.index', compact('vacancies'));
     }
@@ -81,6 +81,8 @@ class VacancyController extends Controller
      */
     public function show(Vacancy $vacancy)
     {
+        if($vacancy->active === 0) return abort('404');
+
         return view('vacancies.show', compact('vacancy'));
     }
 
@@ -183,5 +185,25 @@ class VacancyController extends Controller
 
         //Save in DB
         $vacancy->save();
+    }
+
+    public function search(Request $request){
+        $data = $request->validate([
+            'category' => 'required',
+            'location' => 'required',
+        ]);
+
+        $category = $data['category'];
+        $location = $data['location'];
+
+        $vacancies = Vacancy::latest()->where([
+            'category_id' => $category,
+            'location_id' => $location
+        ])->get();
+        return view('search.index', compact('vacancies'));
+    }
+
+    public function response(){
+
     }
 }

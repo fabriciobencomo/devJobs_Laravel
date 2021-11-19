@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'verified']], function(){
@@ -46,5 +42,11 @@ Route::get('/categories/{category}', [App\Http\Controllers\CategoryController::c
 Route::get('/candidates/{id}', [App\Http\Controllers\CandidateController::class, 'index'])->name('candidates.index');
 Route::post('/candidates/store', [App\Http\Controllers\CandidateController::class, 'store'])->name('candidates.store');
 
+//Search
+Route::post('/search', [App\Http\Controllers\VacancyController::class, 'search'])->name('vacancies.search');
+Route::get('/search/results', [App\Http\Controllers\VacancyController::class, 'results'])->name('vacancies.results');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/vacancies/{vacancy}', [App\Http\Controllers\VacancyController::class, 'show'])->name('vacancies.show');
+
+

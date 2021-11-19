@@ -101,7 +101,7 @@
         </div>
         @enderror
     </div>
-    <button type="submit" class="bg-green-600 w-full text-white hover:bg-green-800 p-3 focus:outline-none focus:shadow-outline font-bold">
+    <button type="submit" class="bg-green-600 w-full text-white hover:bg-green-800 p-3 focus:outline-none focus:shadow-outline font-bold uppercase">
         @if($vacancy->id) Edit Vacancy @else Create Vacancy @endif
     </button>
 </form>

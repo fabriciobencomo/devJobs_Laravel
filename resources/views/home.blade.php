@@ -9,6 +9,7 @@
         <p class="text-3xl text-gray-700 ">
             Dev<span class="font-bold">Jobs</span>
             <h1 class="mt-2 sm:mt-4 text-4xl leading-tight font-bold text-gray-700">Find a Job in your Country or Work remotely <span class="text-green-500">Programmers/Designers</span></h1>
+            @include('templates.searchForm')
         </p>
     </div>
     <div class="block lg:w-1/2">
