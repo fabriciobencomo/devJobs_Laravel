@@ -11,7 +11,7 @@ devjobs is a job forum where its role is to connect professionals and recruiters
 - Laravel
 - nodeJs
 - Npm
-- Create a database with the name ShareRecipes(mysql)
+- Create a database with the name devjobs(mysql)
 
 # installation
 
