@@ -1,4 +1,4 @@
-### Made wiht Laravel
+### Made with Laravel
 
 # Description 
 
